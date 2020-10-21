@@ -150,38 +150,3 @@ impl SimpleAllocator {
         mmap(null_mut(), memory_size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) as *mut u8
     }
 }
-
-pub trait WriteAndReadWords {
-
-    unsafe fn write_word(&self, word: usize);
-    unsafe fn read_word(&self) -> usize;
-}
-
-impl WriteAndReadWords for *mut u8 {
-
-    unsafe fn write_word(&self, word: usize) {
-        unsafe fn write_word_iter(ptr: &*mut u8, bytes_remaining: usize, word: usize) {
-            if bytes_remaining == 0 {
-                return;
-            }
-
-            ptr.write((word & 0xFF) as u8);
-
-            write_word_iter(&ptr.offset(1), bytes_remaining - 1, word >> 8);
-        }
-
-        write_word_iter(&self, size_of::<usize>(), word)
-    }
-
-    unsafe fn read_word(&self) -> usize {
-        unsafe fn read_word_iter(ptr: &* mut u8, bytes_remaining: usize, read: usize) -> usize {
-            if bytes_remaining == 0 {
-                return read;
-            }
-
-            (read_word_iter(&ptr.offset(1), bytes_remaining - 1, read) << 8) | (ptr.read() as usize)
-        }
-
-        read_word_iter(&self, size_of::<usize>(), 0)
-    }
-}
