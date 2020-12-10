@@ -25,3 +25,16 @@ You may notice that `std::thread:sleep` is taking around 60% of all time.
 Here is what we get after removing it:
 
 ![profiler output after optimization](assets/2.png)
+
+`time` output before optimization:
+```
+target/debug/profiling  0.00s user 0.00s system 0% cpu 10.004 total
+```
+
+`time` output after optimization:
+```
+target/debug/profiling  0.00s user 0.00s system 84% cpu 0.005 total
+```
+
+The difference is that execution takes way less wall clock time. cpu% is higher meaning that more time is spent doing
+actual calculations.

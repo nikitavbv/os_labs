@@ -9,7 +9,7 @@ fn func1(a: i32, b: i32) -> i32 {
     let mut res = 0;
 
     for i in 0..10 {
-        // sleep(Duration::from_millis(1000));
+        //sleep(Duration::from_millis(1000));
         if i > 8 {
             res = result_of_sum(a, b);
         }
