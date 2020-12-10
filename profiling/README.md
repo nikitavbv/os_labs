@@ -18,10 +18,10 @@ CLion also uses `perf` profiler and builds flamegraph from its output.
 
 Here is what we get after running profiler for example code:
 
-[profiler output](assets/1.png)
+![profiler output](assets/1.png)
 
 You may notice that `std::thread:sleep` is taking around 60% of all time.
 
 Here is what we get after removing it:
 
-[profiler output after optimization](assets/2.png)
+![profiler output after optimization](assets/2.png)
